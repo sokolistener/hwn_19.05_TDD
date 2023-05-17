@@ -40,4 +40,22 @@ public class PhoneBookTest {
         return Stream.of(Arguments.of("900889512", "John"),
                 Arguments.of("900889513", "Jack"));
     }
+
+    @ParameterizedTest
+    @MethodSource("sourceForFindByName")
+    void testFindByName(String searchingName, String expectedNumber) {
+        String name1 = "John";
+        String phone1 = "900889512";
+        String name2 = "Jack";
+        String phone2 = "900889513";
+
+        phoneBook.add(name1, phone1);
+        phoneBook.add(name2,phone2);
+        Assertions.assertEquals(expectedNumber,phoneBook.findByName(searchingName));
+    }
+
+    private static Stream<Arguments> sourceForFindByName() {
+        return Stream.of(Arguments.of("John", "900889512"),
+                Arguments.of("Jack", "900889513" ));
+    }
 }
