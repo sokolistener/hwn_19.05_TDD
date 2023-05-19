@@ -5,6 +5,8 @@ import com.google.common.collect.HashBiMap;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class PhoneBook {
     private final Map<String, String> phoneBook = new HashMap<>();
@@ -32,6 +34,7 @@ public class PhoneBook {
     }
 
     public void printAllNames(){
-        System.out.println("");
+        Set<String> allNames = new TreeSet<>(phoneBook.keySet());
+        allNames.forEach(System.out::println);
     }
 }

@@ -75,7 +75,7 @@ public class PhoneBookTest {
         phoneBook.add(name2, phone2);
         phoneBook.add(name3, phone3);
 
-        String expectedString = "John\nJack\nJames";
+        String expectedString = "Jack\nJames\nJohn";
         final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
