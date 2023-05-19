@@ -4,10 +4,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.stream.Stream;
 
 public class PhoneBookTest {
     private PhoneBook phoneBook;
+    private final PrintStream standardOut = System.out;
 
     @BeforeEach
     void initiation(){
@@ -58,4 +61,28 @@ public class PhoneBookTest {
         return Stream.of(Arguments.of("John", "900889512"),
                 Arguments.of("Jack", "900889513" ));
     }
+
+    @Test
+    void testPrintAllNames(){
+        String name1 = "John";
+        String phone1 = "900889512";
+        String name2 = "Jack";
+        String phone2 = "900889513";
+        String name3 = "James";
+        String phone3 = "900889514";
+
+        phoneBook.add(name1, phone1);
+        phoneBook.add(name2, phone2);
+        phoneBook.add(name3, phone3);
+
+        String expectedString = "John\nJack\nJames";
+        final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        phoneBook.printAllNames();
+        System.setOut(standardOut);
+
+        Assertions.assertEquals(expectedString, outputStreamCaptor.toString().trim());
+    }
+
 }
